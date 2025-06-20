@@ -1,35 +1,50 @@
-# Page - Session History Dump with Citations
+# Page - Session History Dump with Citations and Memory Management
 
-Dumps the entire conversation history into a comprehensive markdown file with full source attribution and creates a compacted memory summary.
+Like OS paging for processes, this command saves the entire conversation state to disk with full citations. After running this command, you can use `/compact` to free up Claude's context memory.
 
 ## Usage
 
 ```
-/project:page [filename_prefix]
+/project:page [filename_prefix] [output_directory]
 ```
 
 ## Arguments
 
 - `filename_prefix` (optional): Custom prefix for output files. Defaults to "session-dump"
+- `output_directory` (optional): Directory to save files. Defaults to current working directory
 
 ## Description
 
-This command creates a comprehensive archive of the current session including:
+This command implements a memory management strategy similar to OS paging:
 
-1. **Full History File** (`{prefix}-{timestamp}-full.md`):
-   - Complete conversation transcript
-   - All file reads with full content and paths  
-   - Web page content with URLs
-   - Command outputs with execution context
-   - Tool usage with parameters and results
-   - Proper citation formatting for all sources
+1. **Page Out (Save to Disk)**:
+   - Saves complete conversation state with full citations
+   - Creates indexed source references for quick retrieval
+   - Preserves all context before memory compaction
 
-2. **Compact Memory File** (`{prefix}-{timestamp}-compact.md`):
-   - Executive summary of session
-   - Key decisions and outcomes
-   - Important code changes made
-   - Reference index to full history
-   - Condensed for future context loading
+2. **Generated Files**:
+   - **Full History File** (`{prefix}-{timestamp}-full.md`):
+     - Compact summary at top for quick reference
+     - Complete conversation transcript with timestamps
+     - All file operations with paths and content
+     - Web resources with URLs and excerpts
+     - Command executions with outputs
+     - Full citation index for all sources
+   
+   - **Compact Memory File** (`{prefix}-{timestamp}-compact.md`):
+     - Executive summary of session
+     - Key decisions and outcomes
+     - Important code changes made
+     - Quick reference links
+     - Optimized for future context loading
+
+3. **Memory Management Workflow**:
+   - First: Run `/project:page` to save everything to disk
+   - Then: Run `/compact` to free up Claude's context memory
+   - Result: Fresh context while preserving full history
+   - Essential for long development sessions
+
+**Note**: This prepares for `/compact` by saving everything first. Run `/compact` after this command completes.
 
 ## Implementation
 
@@ -50,11 +65,33 @@ Parse and cite all sources encountered:
 - **Generated Content**: Mark AI-generated vs user-provided content
 
 ### Phase 3: Full History Generation
-Create comprehensive markdown with:
+Create comprehensive markdown with compact summary at top:
 ```markdown
 # Session History - {timestamp}
 
-## Session Overview
+## Quick Summary (Compact Memory)
+
+### Executive Summary
+{2-3 sentence summary of what was accomplished}
+
+### Key Accomplishments
+1. **Task 1**: Brief description and outcome
+2. **Task 2**: What was done and result
+3. **Task 3**: Achievement and impact
+
+### Important Findings
+- ✅ Key finding or verification
+- 📄 Created file: path/to/file
+- 🔧 Fixed issue: description
+
+### Quick Links
+- **Main Files**: Links to key files touched
+- **Documentation**: Links to docs created/updated
+- **References**: External resources used
+
+---
+
+## Full Session Overview
 - Start Time: {start}
 - Duration: {duration} 
 - Total Messages: {count}
@@ -139,11 +176,14 @@ Generate executive summary:
 - Issues resolved: {count}
 ```
 
-### Phase 5: File Management
-- Save both files with timestamp
-- Create symlinks to latest versions
-- Add entries to `.gitignore` if needed
-- Confirm successful save with file sizes
+### Phase 5: File Management and Final Steps
+- Generate compact memory file first
+- Include compact content at top of full history file
+- Save both files in current working directory (unless output_directory specified)
+- Use timestamp format: YYYY-MM-DD_HHMMSS
+- Confirm successful save with file paths and sizes
+- Display the compact summary in the conversation
+- **IMPORTANT**: After everything is saved, instruct the user to run `/compact` to free up Claude's memory
 
 ## Output Format
 
@@ -156,15 +196,21 @@ Both files use consistent markdown formatting with proper citations and are imme
 ## Example Usage
 
 ```bash
-# Basic usage - creates session-dump files
+# Basic usage - creates session-dump files in current directory
 /project:page
 
 # Custom prefix
 /project:page feature-implementation
 
-# Results in:
-# - feature-implementation-20250620-143022-full.md
-# - feature-implementation-20250620-143022-compact.md
+# Custom prefix and directory
+/project:page bug-fix-session ./docs/sessions/
+
+# Results in current directory (or specified directory):
+# - feature-implementation-2025-06-20_143022-full.md
+# - feature-implementation-2025-06-20_143022-compact.md
+
+# After completion, run /compact to free up memory:
+/compact
 ```
 
 This command is essential for maintaining context across long development sessions and creating comprehensive documentation of AI-assisted development workflows.

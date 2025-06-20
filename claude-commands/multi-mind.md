@@ -1,13 +1,33 @@
-Execute a multi-specialist collaborative analysis on: $ARGUMENTS
+# Multi-Mind - Subagent-Based Collaborative Analysis
+
+Execute a multi-specialist collaborative analysis using independent subagents.
 
 **Usage**: `/project:multi-mind topic [rounds=3]`
 
-## Dynamic Specialist Assembly
+## Implementation
 
-**Moderator**: 
-- Analyze the topic complexity and assign 4-6 specialist roles with minimal knowledge overlap
-- Each specialist must have distinct analytical approach and domain expertise
-- Ensure specialists can catch different types of errors/blind spots in each other's reasoning
+Execute this multi-specialist analysis using the Task tool to create independent subagents:
+
+### Phase 1: Specialist Assignment & Research
+
+First, analyze the topic and determine 4-6 specialist roles needed. Then launch parallel subagents using the Task tool:
+
+**Example Implementation**:
+```
+// Launch parallel specialist subagents
+Task 1: "Technical Specialist"
+- Prompt: "As a technical specialist, research [topic] focusing on implementation details, architecture, performance considerations, and technical challenges. Use WebSearch to find latest technical documentation and case studies."
+
+Task 2: "Business Strategy Specialist"  
+- Prompt: "As a business strategy specialist, analyze [topic] from market dynamics, competitive landscape, ROI, and strategic positioning perspectives. Search for market reports and business analyses."
+
+Task 3: "User Experience Specialist"
+- Prompt: "As a UX specialist, investigate [topic] focusing on user needs, usability concerns, adoption barriers, and human factors. Find user studies and experience reports."
+
+[Additional specialists as needed...]
+```
+
+Each subagent operates independently with access to WebSearch, Read, and analysis tools.
 
 **Specialist Selection Criteria**:
 - Unique domain expertise relevant to the topic
@@ -16,35 +36,27 @@ Execute a multi-specialist collaborative analysis on: $ARGUMENTS
 - Distinct risk/opportunity sensitivities
 - Independent information sources and knowledge bases
 
-## Progressive Knowledge Building Process
+### Phase 2: Cross-Pollination Round
 
-**Round Structure** (Default 3 rounds, user-configurable):
+After receiving all specialist reports, launch a second round of subagents:
 
-### Phase 1: Independent Knowledge Acquisition
-Each specialist conducts web research in their domain:
-- Search for latest developments, data, case studies, expert opinions
-- Focus on information other specialists likely won't find
-- Identify domain-specific considerations others might miss
+```
+Use the Task tool to launch subagents that:
+1. Review all other specialists' findings
+2. Identify intersections with their domain
+3. Challenge assumptions from their perspective
+4. Build on insights while maintaining distinct viewpoint
+5. Flag blind spots in other analyses
+```
 
-### Phase 2: Specialist Contribution
-Each specialist presents:
-- New information discovered through research
-- Analysis from their unique methodological perspective  
-- Insights that leverage their specific expertise
-- Identification of assumptions others might be making
+### Phase 3: Synthesis & Iteration
 
-### Phase 3: Intelligent Cross-Pollination
-- Specialists identify where their domains intersect
-- Challenge each other's assumptions using their specialized knowledge
-- Build on each other's insights while maintaining distinct perspectives
-- Flag potential blind spots in other specialists' analyses
-
-### Phase 4: Moderator Orchestration
-- Synthesize unique contributions without losing specialist nuance
-- Identify emerging patterns across specialist domains
-- Pose targeted questions to drive deeper analysis in next round
-- Prevent repetition while ensuring thorough coverage
-- Determine when sufficient collective insight has been achieved
+For each round (default 3, user-configurable):
+- Collect all subagent outputs
+- Synthesize without homogenizing perspectives
+- Identify emerging patterns
+- Determine focus areas for next round
+- Launch new subagent tasks with refined prompts
 
 ## Anti-Repetition Mechanisms
 

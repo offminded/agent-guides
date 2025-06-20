@@ -52,37 +52,51 @@ cp claude-commands/*.md ~/.claude/commands/
 
 **Example**: `/project:analyze-function train.py:detect_words_gpu`
 
-### 🧠 Multi-Mind Collaboration Commands
+### 🧠 Multi-Mind Collaboration Command
 
 #### `/project:multi-mind` or `/user:multi-mind`
-**Purpose**: Execute multi-specialist collaborative analysis with configurable rounds  
+**Purpose**: Execute multi-specialist collaborative analysis using independent subagents  
 **Usage**: `/project:multi-mind "topic" [rounds=3]`
 
 **Features**:
-- Dynamic specialist assignment based on topic complexity
-- Web search integration for fresh knowledge each round
-- Anti-repetition mechanisms for progressive insight building
-- Cross-pollination between specialists with different expertise
-- Configurable number of analysis rounds
+- **Subagent Architecture**: Each specialist runs as independent subagent via Task tool
+- **Parallel Processing**: True concurrent execution of specialist research
+- **Dynamic Assignment**: 4-6 specialists chosen based on topic complexity
+- **Web Search Integration**: Each subagent has WebSearch access for fresh knowledge
+- **Anti-Repetition**: Progressive insight building across rounds
+- **Cross-Pollination**: Specialists review and build on each other's findings
 
 **Examples**:
 ```bash
 /project:multi-mind "Should we implement quantum error correction in our ML pipeline?"
 /project:multi-mind "Climate change mitigation strategies" rounds=5
+/project:multi-mind "Scaling transformer architectures beyond current GPU memory limits"
 ```
 
-#### `/project:multi-mind-debate` or `/user:multi-mind-debate`
-**Purpose**: Structured multi-perspective debate format with specialist agents  
-**Usage**: `/project:multi-mind-debate "topic"`
+### 📄 Session Management Commands
+
+#### `/project:page` or `/user:page`
+**Purpose**: Save complete session history with citations, then prepare for memory compaction  
+**Usage**: `/project:page [filename_prefix] [output_directory]`
 
 **Features**:
-- 4-6 dynamically assigned specialist roles per topic
-- Each specialist has distinct domain expertise with minimal overlap
-- Independent error detection through different analytical approaches
-- Active moderator driving progress and preventing repetition
-- Web search integration for cutting-edge information
+- **OS-Style Paging**: Saves conversation state to disk before memory compaction
+- **Full Citations**: Complete source attribution and indexed references
+- **Compact Summary**: Executive summary included at top of full history
+- **Memory Management**: Prepares for `/compact` to free Claude's context
+- **Default Location**: Saves to current working directory unless specified
 
-**Example**: `/project:multi-mind-debate "Scaling transformer architectures beyond current GPU memory limits"`
+**Generated Files**:
+- `{prefix}-{timestamp}-full.md` - Complete history with citations
+- `{prefix}-{timestamp}-compact.md` - Executive summary for future loading
+
+**Example**: 
+```bash
+/project:page                                    # Basic usage
+/project:page feature-implementation             # Custom prefix
+/project:page bug-fix ./docs/sessions/          # Custom location
+# After completion, run: /compact
+```
 
 ## Multi-Mind System Architecture
 
@@ -151,8 +165,10 @@ To contribute new commands:
 
 ### 📊 Analysis & Research
 - `analyze-function.md` - Deep function analysis
-- `multi-mind.md` - Multi-specialist collaborative analysis
-- `multi-mind-debate.md` - Structured expert debates
+- `multi-mind.md` - Multi-specialist collaborative analysis with subagents
+
+### 📄 Session Management
+- `page.md` - Session history dump with citations and memory management
 
 ### 🔧 Development Workflow
 *(Future commands for development automation)*
