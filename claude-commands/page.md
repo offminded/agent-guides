@@ -1,6 +1,6 @@
 # Page - Session History Dump with Citations and Memory Management
 
-Like OS paging for processes, this command saves the entire conversation state to disk with full citations. After running this command, you can use `/compact` to free up Claude's context memory.
+Like OS paging for processes, this command saves the entire conversation state to disk by extracting it from Claude Code's local storage (~/.claude/projects/). After running this command, you can use `/compact` to free up Claude's context memory.
 
 ## Usage
 
@@ -50,11 +50,20 @@ This command implements a memory management strategy similar to OS paging:
 
 Please execute this comprehensive session documentation process:
 
-### Phase 1: History Extraction
-- Access the current conversation thread
-- Extract all messages (user and assistant)
-- Identify all tool usage and parameters
-- Catalog all file operations and content
+### Phase 1: History Extraction from Claude Code Storage
+1. Identify the current project's Claude storage directory:
+   - Convert current working directory to Claude's format (replace / with -)
+   - Locate session files in `~/.claude/projects/{project-dir}/`
+   
+2. Find the current session file:
+   - List all `.jsonl` files sorted by modification time
+   - Select the most recently modified file (current session)
+   
+3. Extract all messages from the JSONL file:
+   - Parse each line as JSON
+   - Extract messages with role and content
+   - Preserve tool usage information
+   - Maintain chronological order
 
 ### Phase 2: Source Attribution  
 Parse and cite all sources encountered:
