@@ -98,6 +98,34 @@ cp claude-commands/*.md ~/.claude/commands/
 # After completion, run: /compact
 ```
 
+### 🔧 Command Management
+
+#### `/project:crud-claude-commands` or `/user:crud-claude-commands`
+**Purpose**: Dynamically manage Claude Code custom commands (Create, Read, Update, Delete)  
+**Usage**: `/project:crud-claude-commands <operation> <command-name> [content]`
+
+**Operations**:
+- **CREATE**: Generate new command from description
+- **READ**: Display existing command content
+- **UPDATE**: Modify command based on instructions
+- **DELETE**: Remove command from system
+- **LIST**: Show all available commands
+
+**Features**:
+- **Dynamic Generation**: Creates commands from natural language descriptions
+- **Auto-Sync**: Automatically updates agent-guides repository if present
+- **Git Integration**: Commits and pushes changes to remote
+- **Template Compliance**: Ensures proper command structure
+- **Error Handling**: Fuzzy matching for command names
+
+**Examples**:
+```bash
+/project:crud-claude-commands create git-flow "Create git workflow automation"
+/project:crud-claude-commands update page "Add JSON export format"
+/project:crud-claude-commands delete old-command
+/project:crud-claude-commands list
+```
+
 ## Multi-Mind System Architecture
 
 ### Core Principles
@@ -171,7 +199,7 @@ To contribute new commands:
 - `page.md` - Session history dump with citations and memory management
 
 ### 🔧 Development Workflow
-*(Future commands for development automation)*
+- `crud-claude-commands.md` - Dynamic command management (CRUD operations)
 
 ### 📚 Documentation & Learning  
 *(Future commands for documentation generation)*
