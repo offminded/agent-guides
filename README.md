@@ -7,9 +7,11 @@ Comprehensive guides and tools for Claude Code workflows, custom commands, and A
 ### 📚 Guides
 - [Claude Code Custom Commands Guide](claude-custom-commands.md) - Complete guide to creating and using custom slash commands
 - [Claude Code Search Best Practices](claude-code-search-best-practices.md) - Comprehensive guide to effective searching in Claude Code
+- [Claude Conversation Search Guide](claude-conversation-search-guide.md) - Complete guide to searching your conversation history
 
 ### 🛠️ Ready-to-Use Tools
 - [Claude Code Commands Collection](claude-commands/) - Production-ready custom commands including:
+  - **Conversation Search**: Multi-source search across all your Claude conversation history
   - **Multi-Mind Analysis**: Collaborative multi-specialist analysis with dynamic role assignment
   - **Function Deep Dive**: Line-by-line code analysis with performance insights
   - **Anti-Repetition Workflows**: Progressive knowledge building across multiple rounds
@@ -44,6 +46,14 @@ cp claude-commands/*.md ~/.claude/commands/
 
 # Structured expert debate format
 /project:multi-mind-debate "Scaling transformer architectures beyond GPU limits"
+```
+
+#### Conversation History Search
+```bash
+# Search across all your Claude conversations
+/project:search-prompts "machine learning pipeline"
+/project:search-prompts "debugging memory issues"
+/project:search-prompts "database optimization"
 ```
 
 #### Deep Code Analysis

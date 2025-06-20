@@ -22,6 +22,21 @@ cp claude-commands/*.md ~/.claude/commands/
 
 ## Available Commands
 
+### 🔍 Search Commands
+
+#### `/project:search-prompts` or `/user:search-prompts`
+**Purpose**: Search across all your Claude Code conversation history  
+**Usage**: `/project:search-prompts "search term"`
+
+**What it provides**:
+- Multi-source search across database and project histories
+- Session-based search with resumable conversation IDs
+- Advanced pattern matching and temporal filtering
+- Conversation summary search for high-level topics
+- Integration with `claude --resume` for continuing relevant discussions
+
+**Example**: `/project:search-prompts "machine learning pipeline"`
+
 ### 📝 Code Analysis Commands
 
 #### `/project:analyze-function` or `/user:analyze-function`
@@ -130,6 +145,9 @@ To contribute new commands:
 4. Submit a pull request with clear description of the command's purpose and benefits
 
 ## Command Categories
+
+### 🔍 Search & Discovery
+- `search-prompts.md` - Comprehensive conversation history search
 
 ### 📊 Analysis & Research
 - `analyze-function.md` - Deep function analysis
