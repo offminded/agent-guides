@@ -130,6 +130,7 @@ Focus area: $ARGUMENTS" > .claude/commands/architecture/review.md
 
 ## See Also
 
+- [Claude Code Search Best Practices](claude-code-search-best-practices.md) - Comprehensive guide to effective searching in Claude Code
 - [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code/slash-commands)
 - [Interactive Mode](https://docs.anthropic.com/en/docs/claude-code/interactive-mode)
 - [Memory Management](https://docs.anthropic.com/en/docs/claude-code/memory)
