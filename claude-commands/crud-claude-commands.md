@@ -106,21 +106,20 @@ Execute the requested CRUD operation:
 
 After any CREATE, UPDATE, or DELETE operation:
 
-1. **Check for agent-guides repository**:
-   - Look for `~/Documents/agent-guides/claude-commands/`
-   - If exists, synchronize the changes
+1. **Agent-guides repository reference**:
+   - Repository: `https://github.com/tokenbender/agent-guides`
+   - Commands directory: `/claude-commands/`
+   - Scripts directory: `/scripts/`
 
-2. **Update agent-guides**:
-   - Copy new/updated commands to agent-guides
-   - Remove deleted commands from agent-guides
-   - Update the README.md if needed
+2. **Sync instructions**:
+   - Inform user to manually sync changes to the agent-guides repository
+   - Provide the command content for easy copy/paste
+   - Suggest creating a PR if appropriate
 
-3. **Git operations** (if agent-guides exists):
-   ```bash
-   git -C ~/Documents/agent-guides add -A
-   git -C ~/Documents/agent-guides commit -m "Update Claude commands: {operation} {command-name}"
-   git -C ~/Documents/agent-guides push origin main
-   ```
+3. **Reference examples**:
+   - View existing commands: https://github.com/tokenbender/agent-guides/tree/main/claude-commands
+   - Extract session script: https://github.com/tokenbender/agent-guides/blob/main/scripts/extract-claude-session.py
+   - Repository README: https://github.com/tokenbender/agent-guides/blob/main/README.md
 
 ## Error Handling
 

@@ -51,19 +51,16 @@ This command implements a memory management strategy similar to OS paging:
 Please execute this comprehensive session documentation process:
 
 ### Phase 1: History Extraction from Claude Code Storage
-1. Identify the current project's Claude storage directory:
-   - Convert current working directory to Claude's format (replace / with -)
-   - Locate session files in `~/.claude/projects/{project-dir}/`
+1. Download and use the extract-claude-session.py script from agent-guides:
+   - Script URL: `https://raw.githubusercontent.com/tokenbender/agent-guides/main/scripts/extract-claude-session.py`
+   - Download it to a temporary location and run it
+   - This will automatically find and extract the current session
    
-2. Find the current session file:
-   - List all `.jsonl` files sorted by modification time
-   - Select the most recently modified file (current session)
-   
-3. Extract all messages from the JSONL file:
-   - Parse each line as JSON
-   - Extract messages with role and content
-   - Preserve tool usage information
-   - Maintain chronological order
+2. The script handles:
+   - Finding the current project's Claude storage directory
+   - Locating the most recent session file
+   - Extracting all messages with proper formatting
+   - Preserving tool usage information and timestamps
 
 ### Phase 2: Source Attribution  
 Parse and cite all sources encountered:
