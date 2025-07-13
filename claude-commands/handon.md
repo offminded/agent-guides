@@ -14,10 +14,10 @@ Run current state discovery:
 ```
 
 3. Load context in order:
-a) Read knowledge card if exists (persistent knowledge): `@docs/knowledge-card.md`
-b) Read latest handoff if exists: `@$LATEST_HANDOFF`
-c) Read compact summary if exists: `@$LATEST_COMPACT`
-d) Read current state: `@.claude/temp-current-state.md`
+- a) Read knowledge card if exists (persistent knowledge): `@docs/knowledge-card.md`
+- b) Read latest handoff if exists: `@$LATEST_HANDOFF`
+- c) Read compact summary if exists: `@$LATEST_COMPACT`
+- d) Read current state: `@.claude/temp-current-state.md`
 
 4. Verify current state:
 ```bash
